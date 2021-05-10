@@ -70,6 +70,11 @@ Esses foram os editores utilizados.
 >># Acesse a pasta mobile
 >>$ cd currencyConverterApp
 >>
+>># Duplique o arquivo .env.example
+>># Renomeie a cópia para .env
+>># Insira a sua chave da API Free Currency Converter no campo API_KEY no arquivo .env
+>>
+>>$ yarn install
 >># Instale as dependências.
 >>$ yarn install
 >>#ou
