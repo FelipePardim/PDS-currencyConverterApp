@@ -3,16 +3,19 @@ import { StyleSheet, Text, View, Image } from "react-native";
 
 import { Picker } from "@react-native-picker/picker";
 
+// Flags
 import brazil from "../../assets/brazil.png";
 import eu from "../../assets/eu.png";
 import usa from "../../assets/usa.png";
 import notFound from "../../assets/notFound.png";
 
+// Currencies JSON
 import currencies from "../Services/Currencies.json";
 
 export function MoneyPicker({ setProps, value }) {
     return (
         <View style={styles.container}>
+            {/* Add flag's */}
             {value === "USD" ? (
                 <Image style={styles.countryFlag} source={usa} />
             ) : value === "EUR" ? (

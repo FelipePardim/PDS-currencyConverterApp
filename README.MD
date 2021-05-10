@@ -23,6 +23,7 @@
 - [Instalação](#Instalação).
 - [Como usar](#como-usar).
     - [Iniciando o app ](#iniciando-mobile).
+        - [Adicionar moedas ](#adicionar-moedas).
 - [Tecnologias utilizadas](#tecnologias).
 - [Licença](#licenca).
 - [Autores](#autores).
@@ -86,6 +87,21 @@ Esses foram os editores utilizados.
 >> # Conecte seu smartphone Android ou iPhone no servidor do Expo, ou use seu emulador preferido.
 >>```
 >
+><h3 id="adicionar-moedas">
+>    💵 Adicionar mais moedas para conversão.
+></h3>
+>
+>>```bash
+>># Adicione o código e nome da moeda no arquivo Currencies.json
+>># utilizando o padrão JSON.
+>>$ nano src/Services/Currencies.json
+>>
+>># Para adicionar a bandeira do país que utiliza a moeda:
+>># Adicione uma imagem png quadrada da bandeira do país na pasta assets com o nome do país
+>>$ assets/newCountry.png
+>># importe a imagem escolhida e adicione o nome do país no operador ternário em:
+>>$ nano src/Components/MoneyPicker.js
+>>
 ---
 
 <h2 id="tecnologias">
