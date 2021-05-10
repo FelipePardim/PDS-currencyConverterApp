@@ -1,27 +1,39 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 
 import { Picker } from "@react-native-picker/picker";
 
-import img from "../../assets/icon.png";
+import brazil from "../../assets/brazil.png";
+import eu from "../../assets/eu.png";
+import usa from "../../assets/usa.png";
+import notFound from "../../assets/notFound.png";
 
-export function MoneyPicker() {
-    const [selectedCurrency, setSelectedCurrency] = useState("USD");
+import currencies from "../Services/Currencies.json";
 
+export function MoneyPicker({ setProps, value }) {
     return (
         <View style={styles.container}>
-            <Image style={styles.countryFlag} source={img} />
+            {value === "USD" ? (
+                <Image style={styles.countryFlag} source={usa} />
+            ) : value === "EUR" ? (
+                <Image style={styles.countryFlag} source={eu} />
+            ) : value === "BRL" ? (
+                <Image style={styles.countryFlag} source={brazil} />
+            ) : (
+                <Image style={styles.countryFlag} source={notFound} />
+            )}
             <Picker
                 style={styles.Picker}
-                selectedValue={selectedCurrency}
-                onValueChange={(itemValue, itemIndex) =>
-                    setSelectedCurrency(itemValue)
-                }
+                selectedValue={value}
+                onValueChange={(itemValue, itemIndex) => setProps(itemValue)}
             >
-                <Picker.Item label="Dolar" value="USD" />
-                <Picker.Item label="Real" value="BRL" />
+                {Object.entries(currencies).map(([item, index]) => {
+                    return (
+                        <Picker.Item label={index} value={item} key={index} />
+                    );
+                })}
             </Picker>
-            <Text>{selectedCurrency}</Text>
+            <Text>{value}</Text>
         </View>
     );
 }

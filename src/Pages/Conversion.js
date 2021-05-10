@@ -1,46 +1,64 @@
-import React from "react";
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import React, { useState } from "react";
+import {
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
+} from "react-native";
 
 import { MoneyPicker } from "../Components/MoneyPicker";
 
-import api from '../Services/api';
+import api from "../Services/api";
 
-import { API_KEY, API_ROUTE } from '@env';
+import { API_KEY, API_ROUTE } from "@env";
 
 export function Conversion() {
-    async function requestApi () {
-        const params = {
-            q: "USD_BRL",
-            compact: "ultra",
-            apiKey: API_KEY
+    const [currencyAmount, setCurrencyAmount] = useState(1);
+    const [conversionResult, setConversionResult] = useState("");
+    const [baseCurrency, setBaseCurrency] = useState("");
+    const [targetCurrency, setTargetCurrency] = useState("");
+
+    async function requestApi() {
+        if (baseCurrency == targetCurrency) {
+            setConversionResult((1 * parseFloat(currencyAmount)).toFixed(2));
+        } else {
+            const params = {
+                q: `${targetCurrency}_${baseCurrency}`,
+                compact: "ultra",
+                apiKey: API_KEY,
+            };
+
+            const { data } = await api.get(API_ROUTE, { params }).then();
+
+            const apiConversionResult = Object.values(data)[0];
+
+            await setConversionResult(
+                (apiConversionResult * parseFloat(currencyAmount)).toFixed(2)
+            );
         }
-
-        const { data } = await api.get(API_ROUTE, { params }).then();
-
-        const conversionResult = Object.values(data)[0];
-
-        console.log(conversionResult);
     }
 
     return (
         <View style={styles.container}>
             <Text>CONVERT MONEAY</Text>
-            <TextInput 
+            <TextInput
                 placeholder="Informe a quantia:"
                 keyboardType="decimal-pad"
+                onChangeText={(value) => setCurrencyAmount(value)}
             />
-            <MoneyPicker />
-            <MoneyPicker />
-            <TouchableOpacity 
+
+            <MoneyPicker setProps={setBaseCurrency} value={baseCurrency} />
+            <MoneyPicker setProps={setTargetCurrency} value={targetCurrency} />
+
+            <TouchableOpacity
                 style={styles.button}
                 onPress={() => requestApi()}
             >
                 <Text>Converter</Text>
             </TouchableOpacity>
             <Text>
-                <Text>
-                    XXX = XXX API {}
-                </Text>
+                <Text>Resultado: {conversionResult} </Text>
             </Text>
         </View>
     );
