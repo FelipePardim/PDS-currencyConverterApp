@@ -36,21 +36,21 @@ export function MoneyPicker({ setProps, value }) {
                     );
                 })}
             </Picker>
-            <Text>{value}</Text>
+            <Text style={styles.text}>{value}</Text>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "red",
-
+        backgroundColor: "#aad576",
         flexDirection: "row",
         width: "90%",
         margin: 5,
         padding: 5,
         justifyContent: "space-between",
         alignItems: "center",
+        borderRadius: 15
     },
     countryFlag: {
         width: 60,
@@ -59,5 +59,10 @@ const styles = StyleSheet.create({
     Picker: {
         width: 200,
         height: 100,
+        marginLeft: 15
     },
+    text: {
+        fontWeight: 'bold',
+        marginRight: 15
+    }
 });
